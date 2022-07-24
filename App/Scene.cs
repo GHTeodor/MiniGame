@@ -17,7 +17,7 @@ namespace MiniGame.App
                 round++;
                 Console.WriteLine(round + " round:\n" + warrior1 + "\n" + warrior2 + "\n");
             }
-            if (!warrior1.isAlive && !warrior2.isAlive) Console.WriteLine("Draft in " + round + "round");
+            if (!warrior1.isAlive && !warrior2.isAlive) Console.WriteLine("Draw in " + round + "round");
             else if (!warrior1.isAlive && warrior2.isAlive)
                     Console.WriteLine(warrior2 + " Winner in " + round + "round");
 
