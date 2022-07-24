@@ -11,6 +11,7 @@ namespace MiniGame.App
         public int HP { get; set; } = 100;
         public int Armor { get; set; }
         public int Strength { get; set; }
+        public bool isAlive { get => HP > 0; }
 
         public virtual void AddSuperPower(ISuperPower superPower, int quantity)
         {
