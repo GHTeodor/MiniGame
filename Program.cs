@@ -17,4 +17,5 @@ archer.AddSuperPower(new AddStrength(), SuperPowerGenerator.GetRandom());
 archer.AddSuperPower(new AddArmor(), SuperPowerGenerator.GetRandom());
 archer.AddSuperPower(new AddHP(), SuperPowerGenerator.GetRandom());
 
-Console.WriteLine(archer);
+// archer.HP = 0;
+// Console.WriteLine(archer);
