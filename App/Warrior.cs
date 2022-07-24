@@ -11,5 +11,10 @@ namespace MiniGame.App
         public int HP { get; set; } = 100;
         public int Armor { get; set; }
         public int Strength { get; set; }
+
+        public virtual void AddSuperPower(ISuperPower superPower, int quantity)
+        {
+            superPower.AddSuperPower(this, quantity);
+        }
     }
 }

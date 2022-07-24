@@ -12,3 +12,9 @@ Console.WriteLine(archer);
 Console.WriteLine(knight);
 Console.WriteLine(ninja);
 Console.WriteLine(witcher);
+
+archer.AddSuperPower(new AddStrength(), SuperPowerGenerator.GetRandom());
+archer.AddSuperPower(new AddArmor(), SuperPowerGenerator.GetRandom());
+archer.AddSuperPower(new AddHP(), SuperPowerGenerator.GetRandom());
+
+Console.WriteLine(archer);
