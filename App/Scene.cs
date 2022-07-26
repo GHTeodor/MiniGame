@@ -10,11 +10,11 @@ namespace MiniGame.App
     {
         public static void Fight(Warrior warrior1, Warrior warrior2)
         {
-            int round = 1;
+            int round = 0;
             while(warrior1.isAlive && warrior2.isAlive) {
+                round++;
                 Defense(Attack(warrior1), warrior2);
                 Defense(Attack(warrior2), warrior1);
-                round++;
                 Console.WriteLine(round + " round:\n" + warrior1 + "\n" + warrior2 + "\n");
             }
             if (!warrior1.isAlive && !warrior2.isAlive) Console.WriteLine("Draw in " + round + "round");
@@ -30,7 +30,7 @@ namespace MiniGame.App
         {
             if (warrior.Armor > 0) return warrior.Strength;
             else
-                return warrior.Strength > 0 ? warrior.Strength-- : 1;
+                return warrior.Strength > 1 ? --warrior.Strength : 1;
         }
 
         public static void Defense(int attack, Warrior warrior)
