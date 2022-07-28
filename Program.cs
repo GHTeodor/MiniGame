@@ -1,21 +1,52 @@
 ﻿using MiniGame.App;
-using MiniGame.App.Warriors;
 using System.Text;
+using MiniGame.App.HW2;
 
 Console.OutputEncoding = Encoding.Unicode;
 
-var warrior1 = Menu.Hero(1);
-var warrior2 = Menu.Hero(2);
+do
+{
+    List<Warrior> warriors = new List<Warrior>();
 
-int addHero1 = SuperPowerGenerator.GetRandom();
-Console.WriteLine("\n Що ви хочете покращити першому Герою №1 на [" + addHero1 + "] пунктів");
-Menu.Update(warrior1, addHero1);
+    int iter = 1;
+    int players = NumberOfPlayers.Players();
 
-int addHero2 = SuperPowerGenerator.GetRandom();
-Console.WriteLine("\n Що ви хочете покращити першому Герою №2 на [" + addHero2 + "] пунктів");
-Menu.Update(warrior2, addHero2);
+    while (warriors.Count() < players)
+    {
+        warriors.Add(Menu.Hero(warriors.Count() + 1));
+        
+        int addToHero = SuperPowerGenerator.GetRandom();
+        Console.WriteLine($"\n Що ви хочете покращити Герою №{iter--} на [{addToHero}] пунктів");
+        Menu.Update(warriors.Skip(iter++).First(), addToHero);
+        iter++;
+    }
 
-Console.WriteLine("Герой №1 " + warrior1);
-Console.WriteLine("Герой №2 " + warrior2);
+    iter = 0;
+    int fightNum = 1;
+    
+    while (warriors.Count() > 0)
+    {
+        Console.WriteLine($"\n New Fight {fightNum++} ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        var warrior1 = warriors.Skip(iter++).First();
+        var warrior2 = warriors.Skip(iter++).First();
+        Scene.Fight(warrior1, warrior2);
+        warriors.RemoveRange(0, 2);
+        iter = 0;
+    }
+    
+} while (NewGameAgain.RepeatGame());
 
-Scene.Fight(warrior1, warrior2);
+// // Operators in class
+// OperatorsInClass op = new OperatorsInClass();
+// OperatorsInClass op1 = new OperatorsInClass();
+// OperatorsInClass op2 = new OperatorsInClass();
+// Console.WriteLine(op1.ToString());
+// Console.WriteLine(op2.ToString());
+// op = op1 + op2;
+// Console.WriteLine("+" + op.ToString());
+// op = op1 - op2;
+// Console.WriteLine("-" + op.ToString());
+// op = op1 * op2;
+// Console.WriteLine("*" + op.ToString());
+// op = op1 / op2;
+// Console.WriteLine("/" + op.ToString());
