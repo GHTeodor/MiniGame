@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MiniGame.App
+﻿namespace MiniGame.App
 {
     public class SuperPowerGenerator
     {
-        public static int GetRandom()
+        public int GetRandom()
         {
-            return new Random().Next(5, 11);
+            int number = DateTime.Now.Millisecond;
+
+            number %= number.ToString().Last();
+
+            while (number < 5 || number > 10)
+            {
+                if (number < 5) number += 5;
+                else if (number > 10) number /= 2;
+            }
+
+            return number;
         }
     }
 }
