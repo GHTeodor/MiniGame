@@ -7,34 +7,29 @@ Console.OutputEncoding = Encoding.Unicode;
 do
 {
     List<Warrior> warriors = new List<Warrior>();
+    
+    int playersNum = PlayerHelper.GetNumberOfPlayers();
 
-    int iter = 1;
-    int players = NumberOfPlayers.Players();
-
-    while (warriors.Count() < players)
+    while (warriors.Count() < playersNum)
     {
-        warriors.Add(Menu.Hero(warriors.Count() + 1));
+        var hero = Menu.ChoseHero(warriors.Count() + 1);
+        warriors.Add(hero);
         
-        int addToHero = SuperPowerGenerator.GetRandom();
-        Console.WriteLine($"\n Що ви хочете покращити Герою №{iter--} на [{addToHero}] пунктів");
-        Menu.Update(warriors.Skip(iter++).First(), addToHero);
-        iter++;
-    }
+        int addSPower = new SuperPowerGenerator().GetRandom();
 
-    iter = 0;
-    int fightNum = 1;
-    
-    while (warriors.Count() > 0)
-    {
-        Console.WriteLine($"\n New Fight {fightNum++} ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-        var warrior1 = warriors.Skip(iter++).First();
-        var warrior2 = warriors.Skip(iter++).First();
-        Scene.Fight(warrior1, warrior2);
-        warriors.RemoveRange(0, 2);
-        iter = 0;
+        Menu.ChoseUpdate(hero, addSPower, warriors.Count());
     }
     
-} while (NewGameAgain.RepeatGame());
+    var duels = warriors.Chunk(2);
+    for (int i = 0; i < duels.Count(); i++)
+    {
+        Console.WriteLine($"\n\nNew Fight {i + 1} ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        
+        var warrior1 = duels.ElementAt(i).First();
+        var warrior2 = duels.ElementAt(i).Last();
+        Scene.Fight(warrior1, warrior2);
+    }
+} while (StartGameHelper.RepeatGame());
 
 // // Operators in class
 // OperatorsInClass op = new OperatorsInClass();
