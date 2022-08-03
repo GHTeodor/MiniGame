@@ -2,7 +2,7 @@
 {
     public static class Scene
     {
-        public static void Fight(Warrior warrior1, Warrior warrior2)
+        public static async Task Fight(Warrior warrior1, Warrior warrior2, int fightNumber)
         {
             int round = 0;
             while (warrior1.IsAlive && warrior2.IsAlive)
@@ -10,7 +10,9 @@
                 round++;
                 warrior1.Defense(warrior2.Attack());
                 warrior2.Defense(warrior1.Attack());
-                Console.WriteLine(round + " round:\n" + warrior1 + "\n" + warrior2 + "\n");
+                await Task.Delay(100);
+
+                Console.WriteLine($"#{fightNumber}. {round} round: \n {warrior1} \n { warrior2 } \n");
             }
 
             if (!warrior1.IsAlive && !warrior2.IsAlive) Console.WriteLine("Draw in " + round + "round");
