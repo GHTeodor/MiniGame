@@ -19,16 +19,11 @@ do
 
         Menu.ChoseUpdate(hero, addSPower, warriors.Count());
     }
+
+    int fightNumber = 1;
+    var duels = warriors.Chunk(2).Select(x => Scene.Fight(x.First(), x.Last(), fightNumber++));
     
-    var duels = warriors.Chunk(2);
-    for (int i = 0; i < duels.Count(); i++)
-    {
-        Console.WriteLine($"\n\nNew Fight {i + 1} ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-        
-        var warrior1 = duels.ElementAt(i).First();
-        var warrior2 = duels.ElementAt(i).Last();
-        Scene.Fight(warrior1, warrior2);
-    }
+    await Task.WhenAll(duels);
 } while (StartGameHelper.RepeatGame());
 
 // // Operators in class
