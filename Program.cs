@@ -1,21 +1,42 @@
 ﻿using MiniGame.App;
-using MiniGame.App.Warriors;
 using System.Text;
+using MiniGame.App.HW2;
 
 Console.OutputEncoding = Encoding.Unicode;
 
-var warrior1 = Menu.Hero(1);
-var warrior2 = Menu.Hero(2);
+do
+{
+    List<Warrior> warriors = new List<Warrior>();
+    
+    int playersNum = PlayerHelper.GetNumberOfPlayers();
 
-int addHero1 = SuperPowerGenerator.GetRandom();
-Console.WriteLine("\n Що ви хочете покращити першому Герою №1 на [" + addHero1 + "] пунктів");
-Menu.Update(warrior1, addHero1);
+    while (warriors.Count() < playersNum)
+    {
+        var hero = Menu.ChoseHero(warriors.Count() + 1);
+        warriors.Add(hero);
+        
+        int addSPower = new SuperPowerGenerator().GetRandom();
 
-int addHero2 = SuperPowerGenerator.GetRandom();
-Console.WriteLine("\n Що ви хочете покращити першому Герою №2 на [" + addHero2 + "] пунктів");
-Menu.Update(warrior2, addHero2);
+        Menu.ChoseUpdate(hero, addSPower, warriors.Count());
+    }
 
-Console.WriteLine("Герой №1 " + warrior1);
-Console.WriteLine("Герой №2 " + warrior2);
+    int fightNumber = 1;
+    var duels = warriors.Chunk(2).Select(x => Scene.Fight(x.First(), x.Last(), fightNumber++));
+    
+    await Task.WhenAll(duels);
+} while (StartGameHelper.RepeatGame());
 
-Scene.Fight(warrior1, warrior2);
+// // Operators in class
+// OperatorsInClass op = new OperatorsInClass();
+// OperatorsInClass op1 = new OperatorsInClass();
+// OperatorsInClass op2 = new OperatorsInClass();
+// Console.WriteLine(op1.ToString());
+// Console.WriteLine(op2.ToString());
+// op = op1 + op2;
+// Console.WriteLine("+" + op.ToString());
+// op = op1 - op2;
+// Console.WriteLine("-" + op.ToString());
+// op = op1 * op2;
+// Console.WriteLine("*" + op.ToString());
+// op = op1 / op2;
+// Console.WriteLine("/" + op.ToString());
